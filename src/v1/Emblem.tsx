@@ -1,5 +1,5 @@
 import React, {useId} from 'react';
-import {colors} from './theme';
+import {colors} from '../theme';
 
 // Vector redraw of the original logo: an open book, a gold mountain
 // ridge rising from its pages and a crescent moon above the peak.

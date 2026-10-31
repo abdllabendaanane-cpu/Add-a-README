@@ -14,4 +14,14 @@ export const fontsReady = Promise.all([
 		url: staticFile('fonts/reem-kufi-arabic-700-normal.woff2'),
 		weight: '700',
 	}),
+	loadFont({
+		family: fonts.arabic,
+		url: staticFile('fonts/cairo-arabic-600-normal.woff2'),
+		weight: '600',
+	}),
+	loadFont({
+		family: fonts.arabic,
+		url: staticFile('fonts/cairo-arabic-700-normal.woff2'),
+		weight: '700',
+	}),
 ]);

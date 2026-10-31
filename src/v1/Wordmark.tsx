@@ -1,5 +1,5 @@
 import React from 'react';
-import {colors, fonts, goldGradient} from './theme';
+import {colors, fonts, goldGradient} from '../theme';
 
 const goldText: React.CSSProperties = {
 	backgroundImage: goldGradient,
