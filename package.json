@@ -1,10 +1,13 @@
 {
   "name": "add-a-readme",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Al_3asr|TV brand images (profile picture, Facebook cover, YouTube banner) built with Remotion",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "studio": "remotion studio src/index.ts",
+    "render:profile": "remotion still src/index.ts Profile designs/al3asr-tv-profile-1080x1080.png",
+    "render:facebook": "remotion still src/index.ts FacebookCover designs/al3asr-tv-facebook-cover-1640x624.png",
+    "render:youtube": "remotion still src/index.ts YouTubeBanner designs/al3asr-tv-youtube-banner-2560x1440.png",
+    "render": "npm run render:profile && npm run render:facebook && npm run render:youtube"
   },
   "repository": {
     "type": "git",
@@ -18,9 +21,11 @@
   },
   "homepage": "https://github.com/abdllabendaanane-cpu/Add-a-README#readme",
   "dependencies": {
-    "@remotion/cli": "^4.0.539",
+    "@remotion/cli": "4.0.539",
+    "@remotion/fonts": "4.0.539",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "remotion": "^4.0.539"
-  }
+    "remotion": "4.0.539"
+  },
+  "private": true
 }
