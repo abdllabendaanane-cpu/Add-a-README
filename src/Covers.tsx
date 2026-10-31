@@ -3,7 +3,7 @@ import {AbsoluteFill} from 'remotion';
 import {CategoryLine, Wordmark} from './Brand';
 import {GlobeEmblem} from './GlobeEmblem';
 import {Guides} from './Scenery';
-import {Atmosphere, Vignette, WorldMap} from './WorldMap';
+import {Atmosphere, CITIES, LINKS, Vignette, WorldMap} from './WorldMap';
 
 // Logo stacked over the wordmark and the category line.
 const Lockup: React.FC<{centerX: number; scale: number; offsetY?: number}> = ({centerX, scale, offsetY = 0}) => (
@@ -30,34 +30,60 @@ const Lockup: React.FC<{centerX: number; scale: number; offsetY?: number}> = ({c
 	</AbsoluteFill>
 );
 
+// YouTube shows only the central 1546x423 area on phones, so the logo,
+// name, categories and city network all sit inside it, laid out in a row.
+const SAFE = {x: 507, y: 508, w: 1546, h: 423};
+
+const bannerCities = CITIES.filter((c) => c.name !== 'سمرقند').map((c) =>
+	c.name === 'قرطبة' ? {...c, label: 'top' as const} : c,
+);
+const bannerLinks = LINKS.filter(([a, b]) => a !== 'سمرقند' && b !== 'سمرقند');
+
 export const YouTubeBanner: React.FC<{guides?: boolean}> = ({guides}) => {
 	const W = 2560;
 	const H = 1440;
-	const logoX = 925;
 	return (
 		<AbsoluteFill>
-			<Atmosphere width={W} height={H} goldGlow={{x: '68%', y: '50%'}} tealGlow={{x: '36%', y: '50%'}} />
+			<Atmosphere width={W} height={H} goldGlow={{x: '70%', y: '50%'}} tealGlow={{x: '40%', y: '50%'}} />
 			<WorldMap
 				width={W}
 				height={H}
-				k={11}
+				k={7.6}
 				lon0={22}
-				lat0={32}
-				x0={1737}
+				lat0={31}
+				x0={1828}
 				y0={720}
-				dotRadius={2.1}
-				scale={1}
-				focus={{x: 1760, y: 720, r: 560, strength: 0.42}}
-				dim={{x: logoX, y: 720, r: 520, strength: 0.8}}
+				dotRadius={1.9}
+				scale={1.2}
+				focus={{x: 1800, y: 720, r: 420, strength: 0.45}}
+				dim={{x: 1030, y: 720, r: 580, strength: 0.82}}
+				cities={bannerCities}
+				links={bannerLinks}
 			/>
 			<Vignette />
-			<Lockup centerX={logoX} scale={1} offsetY={-14} />
+			<div
+				style={{
+					position: 'absolute',
+					left: SAFE.x + 14,
+					top: SAFE.y,
+					height: SAFE.h,
+					display: 'flex',
+					alignItems: 'center',
+					gap: 18,
+				}}
+			>
+				<GlobeEmblem size={320} />
+				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 26}}>
+					<Wordmark fontSize={114} />
+					<CategoryLine fontSize={38} />
+				</div>
+			</div>
 			{guides ? (
 				<Guides
 					boxes={[
-						{x: 0, y: 508, w: 2560, h: 423, label: 'Desktop', color: '#f55'},
-						{x: 352, y: 508, w: 1855, h: 423, label: 'Tablet', color: '#fc3'},
-						{x: 507, y: 508, w: 1546, h: 423, label: 'Safe (all devices)', color: '#3cf'},
+						{x: 0, y: SAFE.y, w: W, h: SAFE.h, label: 'Desktop', color: '#f55'},
+						{x: 352, y: SAFE.y, w: 1855, h: SAFE.h, label: 'Tablet', color: '#fc3'},
+						{...SAFE, label: 'Safe (all devices)', color: '#3cf'},
 					]}
 				/>
 			) : null}

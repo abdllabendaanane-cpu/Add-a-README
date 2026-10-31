@@ -56,7 +56,9 @@ export const WorldMap: React.FC<{
 	scale: number;
 	focus: Spot;
 	dim?: Spot;
-}> = ({width, height, k, lon0, lat0, x0, y0, dotRadius, scale, focus, dim}) => {
+	cities?: City[];
+	links?: [string, string][];
+}> = ({width, height, k, lon0, lat0, x0, y0, dotRadius, scale, focus, dim, cities = CITIES, links = LINKS}) => {
 	const id = useId().replace(/:/g, '');
 	const project = (lon: number, lat: number) => ({x: x0 + (lon - lon0) * k, y: y0 - (lat - lat0) * k});
 
@@ -78,14 +80,14 @@ export const WorldMap: React.FC<{
 		[width, height, k, lon0, lat0, x0, y0],
 	);
 
-	const byName = Object.fromEntries(CITIES.map((c) => [c.name, {...c, ...project(c.lon, c.lat)}]));
+	const byName = Object.fromEntries(cities.map((c) => [c.name, {...c, ...project(c.lon, c.lat)}]));
 	const s = scale;
 
 	return (
 		<AbsoluteFill>
 			<svg width={width} height={height}>
 				<defs>
-					{LINKS.map(([a, b], i) => (
+					{links.map(([a, b], i) => (
 						<linearGradient
 							key={i}
 							id={`l${id}${i}`}
@@ -108,7 +110,7 @@ export const WorldMap: React.FC<{
 
 				{/* arcs between cities, bowed upwards */}
 				<g fill="none" strokeLinecap="round" style={{filter: `drop-shadow(0 0 ${4 * s}px rgba(246,213,142,0.55))`}}>
-					{LINKS.map(([a, b], i) => {
+					{links.map(([a, b], i) => {
 						const p = byName[a];
 						const q = byName[b];
 						const mx = (p.x + q.x) / 2;
@@ -130,7 +132,7 @@ export const WorldMap: React.FC<{
 					})}
 				</g>
 
-				{CITIES.map((c) => {
+				{cities.map((c) => {
 					const p = byName[c.name];
 					const off = 16 * s;
 					const label =
