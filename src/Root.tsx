@@ -16,6 +16,13 @@ export const RemotionRoot: React.FC = () => {
 			{/* YouTube channel banner; logo stays inside the 1546x423 safe area. */}
 			<Still id="YouTubeBanner" component={YouTubeBanner} width={2560} height={1440} defaultProps={{guides: false}} />
 
+			{/* Same designs for the "Al_3asr Doc" channel name. */}
+			<Folder name="doc">
+				<Still id="Doc-Profile" component={Profile} width={1080} height={1080} defaultProps={{guides: false, variant: 'doc' as const}} />
+				<Still id="Doc-FacebookCover" component={FacebookCover} width={1640} height={624} defaultProps={{guides: false, variant: 'doc' as const}} />
+				<Still id="Doc-YouTubeBanner" component={YouTubeBanner} width={2560} height={1440} defaultProps={{guides: false, variant: 'doc' as const}} />
+			</Folder>
+
 			{/* First version: book, mountains and night sky. */}
 			<Folder name="v1">
 				<Still id="V1-Profile" component={V1Profile} width={1080} height={1080} defaultProps={{guides: false}} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {Wordmark} from './Brand';
+import {Variant, Wordmark} from './Brand';
 import {GlobeEmblem} from './GlobeEmblem';
 import {colors} from './theme';
 import {Atmosphere, Vignette} from './WorldMap';
@@ -38,7 +38,7 @@ const Dial: React.FC = () => {
 	);
 };
 
-export const Profile: React.FC<{guides?: boolean}> = ({guides}) => (
+export const Profile: React.FC<{guides?: boolean; variant?: Variant}> = ({guides, variant = 'tv'}) => (
 	<AbsoluteFill>
 		<Atmosphere width={SIZE} height={SIZE} goldGlow={{x: '50%', y: '40%'}} tealGlow={{x: '50%', y: '62%'}} />
 		<Vignette />
@@ -46,7 +46,7 @@ export const Profile: React.FC<{guides?: boolean}> = ({guides}) => (
 		<AbsoluteFill style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'column', paddingTop: 10}}>
 			<GlobeEmblem size={600} style={{marginTop: -40}} />
 			<div style={{height: 4}} />
-			<Wordmark fontSize={92} />
+			<Wordmark fontSize={92} variant={variant} />
 		</AbsoluteFill>
 		{guides ? (
 			<svg width={SIZE} height={SIZE} style={{position: 'absolute', inset: 0}}>

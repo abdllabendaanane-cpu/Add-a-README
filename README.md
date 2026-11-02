@@ -18,6 +18,18 @@ Profile picture, Facebook cover and YouTube banner for **Al_3asr|TV**, a page ab
 
 النسخة الأولى (الكتاب والجبال والسماء الليلية) موجودة في [`designs/v1/`](designs/v1/).
 
+### نسخة Al_3asr Doc
+
+نفس التصاميم باسم القناة **Al_3asr Doc**، مع «وثائقيات» بدل «أخبار» في سطر الأقسام. الملفات في [`designs/doc/`](designs/doc/):
+
+| الملف | الاستخدام |
+|---|---|
+| [`al3asr-doc-profile-1080x1080.png`](designs/doc/al3asr-doc-profile-1080x1080.png) | صورة البروفايل |
+| [`al3asr-doc-facebook-cover-1640x624.png`](designs/doc/al3asr-doc-facebook-cover-1640x624.png) | غلاف فيسبوك |
+| [`al3asr-doc-youtube-banner-2560x1440.png`](designs/doc/al3asr-doc-youtube-banner-2560x1440.png) | بانر يوتيوب |
+
+للتصدير: `npm run render:doc`.
+
 ## الفكرة / Concept
 
 - **الشعار:**

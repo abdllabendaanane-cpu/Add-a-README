@@ -7,7 +7,11 @@
     "render:profile": "remotion still src/index.ts Profile designs/al3asr-tv-profile-1080x1080.png",
     "render:facebook": "remotion still src/index.ts FacebookCover designs/al3asr-tv-facebook-cover-1640x624.png",
     "render:youtube": "remotion still src/index.ts YouTubeBanner designs/al3asr-tv-youtube-banner-2560x1440.png",
-    "render": "npm run render:profile && npm run render:facebook && npm run render:youtube"
+    "render": "npm run render:profile && npm run render:facebook && npm run render:youtube",
+    "render:doc:profile": "remotion still src/index.ts Doc-Profile designs/doc/al3asr-doc-profile-1080x1080.png",
+    "render:doc:facebook": "remotion still src/index.ts Doc-FacebookCover designs/doc/al3asr-doc-facebook-cover-1640x624.png",
+    "render:doc:youtube": "remotion still src/index.ts Doc-YouTubeBanner designs/doc/al3asr-doc-youtube-banner-2560x1440.png",
+    "render:doc": "npm run render:doc:profile && npm run render:doc:facebook && npm run render:doc:youtube"
   },
   "repository": {
     "type": "git",

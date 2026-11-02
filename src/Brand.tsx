@@ -1,8 +1,10 @@
 import React from 'react';
 import {colors, fonts, goldGradient} from './theme';
 
-// "Al_3asr|TV" with "TV" set on a gold broadcast-style badge.
-export const Wordmark: React.FC<{fontSize: number}> = ({fontSize}) => (
+export type Variant = 'tv' | 'doc';
+
+// "Al_3asr|TV" or "Al_3asr Doc", with the suffix set on a gold badge.
+export const Wordmark: React.FC<{fontSize: number; variant?: Variant}> = ({fontSize, variant = 'tv'}) => (
 	<div
 		style={{
 			display: 'flex',
@@ -28,17 +30,21 @@ export const Wordmark: React.FC<{fontSize: number}> = ({fontSize}) => (
 			_
 		</span>
 		<span style={{textShadow: '0 4px 24px rgba(0,0,0,0.5)'}}>3asr</span>
-		<span
-			style={{
-				display: 'inline-block',
-				width: Math.max(4, fontSize * 0.07),
-				height: fontSize * 0.86,
-				margin: `0 ${fontSize * 0.16}px`,
-				borderRadius: fontSize * 0.04,
-				background: colors.gold,
-				boxShadow: '0 0 18px rgba(226,169,75,0.45)',
-			}}
-		/>
+		{variant === 'doc' ? (
+			<span style={{display: 'inline-block', width: fontSize * 0.26}} />
+		) : (
+			<span
+				style={{
+					display: 'inline-block',
+					width: Math.max(4, fontSize * 0.07),
+					height: fontSize * 0.86,
+					margin: `0 ${fontSize * 0.16}px`,
+					borderRadius: fontSize * 0.04,
+					background: colors.gold,
+					boxShadow: '0 0 18px rgba(226,169,75,0.45)',
+				}}
+			/>
+		)}
 		<span
 			style={{
 				display: 'inline-flex',
@@ -52,12 +58,12 @@ export const Wordmark: React.FC<{fontSize: number}> = ({fontSize}) => (
 				boxShadow: '0 6px 28px rgba(226,169,75,0.35)',
 			}}
 		>
-			TV
+			{variant === 'doc' ? 'Doc' : 'TV'}
 		</span>
 	</div>
 );
 
-type IconName = 'news' | 'history' | 'science' | 'culture';
+type IconName = 'news' | 'doc' | 'history' | 'science' | 'culture';
 
 // Line icons, 24x24, drawn with the current stroke colour.
 const Icon: React.FC<{name: IconName; size: number}> = ({name, size}) => {
@@ -75,6 +81,12 @@ const Icon: React.FC<{name: IconName; size: number}> = ({name, size}) => {
 					<circle cx="12" cy="13" r="1.9" fill={colors.gold} />
 					<path d="M8.4 9.2 A5.3 5.3 0 0 0 8.4 16.8 M15.6 9.2 A5.3 5.3 0 0 1 15.6 16.8" />
 					<path d="M5.3 6.1 A9.6 9.6 0 0 0 5.3 19.9 M18.7 6.1 A9.6 9.6 0 0 1 18.7 19.9" />
+				</g>
+			) : null}
+			{name === 'doc' ? (
+				<g {...common}>
+					<rect x="2.5" y="4.5" width="19" height="15" rx="2.5" />
+					<path d="M10 9 L15.5 12 L10 15 Z" fill={colors.gold} />
 				</g>
 			) : null}
 			{name === 'history' ? (
@@ -101,15 +113,19 @@ const Icon: React.FC<{name: IconName; size: number}> = ({name, size}) => {
 	);
 };
 
-const CATEGORIES: {icon: IconName; label: string}[] = [
-	{icon: 'news', label: 'أخبار'},
+const LEAD: Record<Variant, {icon: IconName; label: string}> = {
+	tv: {icon: 'news', label: 'أخبار'},
+	doc: {icon: 'doc', label: 'وثائقيات'},
+};
+
+const TOPICS: {icon: IconName; label: string}[] = [
 	{icon: 'history', label: 'تاريخ'},
 	{icon: 'science', label: 'علوم'},
 	{icon: 'culture', label: 'ثقافة'},
 ];
 
-// "أخبار • تاريخ • علوم • ثقافة" with an icon for each.
-export const CategoryLine: React.FC<{fontSize: number}> = ({fontSize}) => (
+// "أخبار • تاريخ • علوم • ثقافة" (or "وثائقيات • ..." for Doc), each with an icon.
+export const CategoryLine: React.FC<{fontSize: number; variant?: Variant}> = ({fontSize, variant = 'tv'}) => (
 	<div
 		dir="rtl"
 		style={{
@@ -124,7 +140,7 @@ export const CategoryLine: React.FC<{fontSize: number}> = ({fontSize}) => (
 			whiteSpace: 'nowrap',
 		}}
 	>
-		{CATEGORIES.map((c, i) => (
+		{[LEAD[variant], ...TOPICS].map((c, i) => (
 			<React.Fragment key={c.label}>
 				{i > 0 ? (
 					<span

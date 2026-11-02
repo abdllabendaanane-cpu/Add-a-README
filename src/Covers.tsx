@@ -1,12 +1,17 @@
 import React from 'react';
 import {AbsoluteFill} from 'remotion';
-import {CategoryLine, Wordmark} from './Brand';
+import {CategoryLine, Variant, Wordmark} from './Brand';
 import {GlobeEmblem} from './GlobeEmblem';
 import {Guides} from './Scenery';
 import {Atmosphere, CITIES, LINKS, Vignette, WorldMap} from './WorldMap';
 
 // Logo stacked over the wordmark and the category line.
-const Lockup: React.FC<{centerX: number; scale: number; offsetY?: number}> = ({centerX, scale, offsetY = 0}) => (
+const Lockup: React.FC<{centerX: number; scale: number; offsetY?: number; variant: Variant}> = ({
+	centerX,
+	scale,
+	offsetY = 0,
+	variant,
+}) => (
 	<AbsoluteFill>
 		<div
 			style={{
@@ -23,9 +28,9 @@ const Lockup: React.FC<{centerX: number; scale: number; offsetY?: number}> = ({c
 		>
 			<GlobeEmblem size={250 * scale} />
 			<div style={{height: 2 * scale}} />
-			<Wordmark fontSize={104 * scale} />
+			<Wordmark fontSize={104 * scale} variant={variant} />
 			<div style={{height: 20 * scale}} />
-			<CategoryLine fontSize={38 * scale} />
+			<CategoryLine fontSize={38 * scale} variant={variant} />
 		</div>
 	</AbsoluteFill>
 );
@@ -39,9 +44,12 @@ const bannerCities = CITIES.filter((c) => c.name !== 'سمرقند').map((c) =>
 );
 const bannerLinks = LINKS.filter(([a, b]) => a !== 'سمرقند' && b !== 'سمرقند');
 
-export const YouTubeBanner: React.FC<{guides?: boolean}> = ({guides}) => {
+export const YouTubeBanner: React.FC<{guides?: boolean; variant?: Variant}> = ({guides, variant = 'tv'}) => {
 	const W = 2560;
 	const H = 1440;
+	// "Doc" and "وثائقيات" are wider than "TV" and "أخبار", so that set is a
+	// little smaller to keep the same gap before the city network.
+	const size = variant === 'doc' ? {emblem: 300, word: 104, cat: 35} : {emblem: 320, word: 114, cat: 38};
 	return (
 		<AbsoluteFill>
 			<Atmosphere width={W} height={H} goldGlow={{x: '70%', y: '50%'}} tealGlow={{x: '40%', y: '50%'}} />
@@ -72,10 +80,10 @@ export const YouTubeBanner: React.FC<{guides?: boolean}> = ({guides}) => {
 					gap: 18,
 				}}
 			>
-				<GlobeEmblem size={320} />
+				<GlobeEmblem size={size.emblem} />
 				<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 26}}>
-					<Wordmark fontSize={114} />
-					<CategoryLine fontSize={38} />
+					<Wordmark fontSize={size.word} variant={variant} />
+					<CategoryLine fontSize={size.cat} variant={variant} />
 				</div>
 			</div>
 			{guides ? (
@@ -91,7 +99,7 @@ export const YouTubeBanner: React.FC<{guides?: boolean}> = ({guides}) => {
 	);
 };
 
-export const FacebookCover: React.FC<{guides?: boolean}> = ({guides}) => {
+export const FacebookCover: React.FC<{guides?: boolean; variant?: Variant}> = ({guides, variant = 'tv'}) => {
 	const W = 1640;
 	const H = 624;
 	const logoX = 610;
@@ -112,7 +120,7 @@ export const FacebookCover: React.FC<{guides?: boolean}> = ({guides}) => {
 				dim={{x: logoX, y: 300, r: 380, strength: 0.8}}
 			/>
 			<Vignette />
-			<Lockup centerX={logoX} scale={0.68} offsetY={-36} />
+			<Lockup centerX={logoX} scale={0.68} offsetY={-36} variant={variant} />
 			{guides ? (
 				<Guides
 					boxes={[
