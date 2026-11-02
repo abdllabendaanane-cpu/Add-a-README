@@ -30,6 +30,18 @@ Profile picture, Facebook cover and YouTube banner for **Al_3asr|TV**, a page ab
 
 للتصدير: `npm run render:doc`.
 
+### نسخة Al.Asr_Doc
+
+نفس التصاميم باسم **Al.Asr_Doc**: النقطة والشرطة السفلية بالذهبي، و**Doc** على الشارة الذهبية. الملفات في [`designs/asrdoc/`](designs/asrdoc/):
+
+| الملف | الاستخدام |
+|---|---|
+| [`al-asr-doc-profile-1080x1080.png`](designs/asrdoc/al-asr-doc-profile-1080x1080.png) | صورة البروفايل |
+| [`al-asr-doc-facebook-cover-1640x624.png`](designs/asrdoc/al-asr-doc-facebook-cover-1640x624.png) | غلاف فيسبوك |
+| [`al-asr-doc-youtube-banner-2560x1440.png`](designs/asrdoc/al-asr-doc-youtube-banner-2560x1440.png) | بانر يوتيوب |
+
+للتصدير: `npm run render:asrdoc`.
+
 ## الفكرة / Concept
 
 - **الشعار:**

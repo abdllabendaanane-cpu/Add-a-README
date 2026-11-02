@@ -47,9 +47,9 @@ const bannerLinks = LINKS.filter(([a, b]) => a !== 'سمرقند' && b !== 'سم
 export const YouTubeBanner: React.FC<{guides?: boolean; variant?: Variant}> = ({guides, variant = 'tv'}) => {
 	const W = 2560;
 	const H = 1440;
-	// "Doc" and "وثائقيات" are wider than "TV" and "أخبار", so that set is a
-	// little smaller to keep the same gap before the city network.
-	const size = variant === 'doc' ? {emblem: 300, word: 104, cat: 35} : {emblem: 320, word: 114, cat: 38};
+	// "Doc" and "وثائقيات" are wider than "TV" and "أخبار", so the Doc sets are
+	// a little smaller to keep the same gap before the city network.
+	const size = variant === 'tv' ? {emblem: 320, word: 114, cat: 38} : {emblem: 300, word: 104, cat: 35};
 	return (
 		<AbsoluteFill>
 			<Atmosphere width={W} height={H} goldGlow={{x: '70%', y: '50%'}} tealGlow={{x: '40%', y: '50%'}} />

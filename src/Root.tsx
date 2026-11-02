@@ -23,6 +23,13 @@ export const RemotionRoot: React.FC = () => {
 				<Still id="Doc-YouTubeBanner" component={YouTubeBanner} width={2560} height={1440} defaultProps={{guides: false, variant: 'doc' as const}} />
 			</Folder>
 
+			{/* Same designs for the "Al.Asr_Doc" channel name. */}
+			<Folder name="asrdoc">
+				<Still id="AsrDoc-Profile" component={Profile} width={1080} height={1080} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
+				<Still id="AsrDoc-FacebookCover" component={FacebookCover} width={1640} height={624} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
+				<Still id="AsrDoc-YouTubeBanner" component={YouTubeBanner} width={2560} height={1440} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
+			</Folder>
+
 			{/* First version: book, mountains and night sky. */}
 			<Folder name="v1">
 				<Still id="V1-Profile" component={V1Profile} width={1080} height={1080} defaultProps={{guides: false}} />

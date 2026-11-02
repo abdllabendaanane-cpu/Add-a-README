@@ -1,67 +1,88 @@
 import React from 'react';
 import {colors, fonts, goldGradient} from './theme';
 
-export type Variant = 'tv' | 'doc';
+export type Variant = 'tv' | 'doc' | 'asrdoc';
 
-// "Al_3asr|TV" or "Al_3asr Doc", with the suffix set on a gold badge.
-export const Wordmark: React.FC<{fontSize: number; variant?: Variant}> = ({fontSize, variant = 'tv'}) => (
-	<div
-		style={{
-			display: 'flex',
-			alignItems: 'center',
-			fontFamily: fonts.latin,
-			fontWeight: 800,
-			fontSize,
-			lineHeight: 1,
-			letterSpacing: '-0.015em',
-			color: colors.cream,
-			whiteSpace: 'nowrap',
-		}}
-	>
-		<span style={{textShadow: '0 4px 24px rgba(0,0,0,0.5)'}}>Al</span>
-		<span
+type Name = {
+	// text before the badge; gold parts are the punctuation
+	parts: {text: string; gold?: boolean}[];
+	// what sits between that text and the badge
+	join: 'bar' | 'space' | 'tight';
+	badge: string;
+};
+
+const NAMES: Record<Variant, Name> = {
+	tv: {parts: [{text: 'Al'}, {text: '_', gold: true}, {text: '3asr'}], join: 'bar', badge: 'TV'},
+	doc: {parts: [{text: 'Al'}, {text: '_', gold: true}, {text: '3asr'}], join: 'space', badge: 'Doc'},
+	asrdoc: {
+		parts: [{text: 'Al'}, {text: '.', gold: true}, {text: 'Asr'}, {text: '_', gold: true}],
+		join: 'tight',
+		badge: 'Doc',
+	},
+};
+
+const goldText: React.CSSProperties = {
+	backgroundImage: goldGradient,
+	WebkitBackgroundClip: 'text',
+	backgroundClip: 'text',
+	color: 'transparent',
+};
+
+// "Al_3asr|TV", "Al_3asr Doc" or "Al.Asr_Doc", with the suffix on a gold badge.
+export const Wordmark: React.FC<{fontSize: number; variant?: Variant}> = ({fontSize, variant = 'tv'}) => {
+	const name = NAMES[variant];
+	return (
+		<div
 			style={{
-				backgroundImage: goldGradient,
-				WebkitBackgroundClip: 'text',
-				backgroundClip: 'text',
-				color: 'transparent',
+				display: 'flex',
+				alignItems: 'center',
+				fontFamily: fonts.latin,
+				fontWeight: 800,
+				fontSize,
+				lineHeight: 1,
+				letterSpacing: '-0.015em',
+				color: colors.cream,
+				whiteSpace: 'nowrap',
 			}}
 		>
-			_
-		</span>
-		<span style={{textShadow: '0 4px 24px rgba(0,0,0,0.5)'}}>3asr</span>
-		{variant === 'doc' ? (
-			<span style={{display: 'inline-block', width: fontSize * 0.26}} />
-		) : (
+			{name.parts.map((part, i) => (
+				<span key={i} style={part.gold ? goldText : {textShadow: '0 4px 24px rgba(0,0,0,0.5)'}}>
+					{part.text}
+				</span>
+			))}
+			{name.join === 'bar' ? (
+				<span
+					style={{
+						display: 'inline-block',
+						width: Math.max(4, fontSize * 0.07),
+						height: fontSize * 0.86,
+						margin: `0 ${fontSize * 0.16}px`,
+						borderRadius: fontSize * 0.04,
+						background: colors.gold,
+						boxShadow: '0 0 18px rgba(226,169,75,0.45)',
+					}}
+				/>
+			) : (
+				<span style={{display: 'inline-block', width: fontSize * (name.join === 'space' ? 0.26 : 0.1)}} />
+			)}
 			<span
 				style={{
-					display: 'inline-block',
-					width: Math.max(4, fontSize * 0.07),
-					height: fontSize * 0.86,
-					margin: `0 ${fontSize * 0.16}px`,
-					borderRadius: fontSize * 0.04,
-					background: colors.gold,
-					boxShadow: '0 0 18px rgba(226,169,75,0.45)',
+					display: 'inline-flex',
+					alignItems: 'center',
+					padding: `${fontSize * 0.1}px ${fontSize * 0.16}px ${fontSize * 0.08}px`,
+					borderRadius: fontSize * 0.14,
+					backgroundImage: goldGradient,
+					color: colors.navy,
+					fontSize: fontSize * 0.8,
+					letterSpacing: '0.02em',
+					boxShadow: '0 6px 28px rgba(226,169,75,0.35)',
 				}}
-			/>
-		)}
-		<span
-			style={{
-				display: 'inline-flex',
-				alignItems: 'center',
-				padding: `${fontSize * 0.1}px ${fontSize * 0.16}px ${fontSize * 0.08}px`,
-				borderRadius: fontSize * 0.14,
-				backgroundImage: goldGradient,
-				color: colors.navy,
-				fontSize: fontSize * 0.8,
-				letterSpacing: '0.02em',
-				boxShadow: '0 6px 28px rgba(226,169,75,0.35)',
-			}}
-		>
-			{variant === 'doc' ? 'Doc' : 'TV'}
-		</span>
-	</div>
-);
+			>
+				{name.badge}
+			</span>
+		</div>
+	);
+};
 
 type IconName = 'news' | 'doc' | 'history' | 'science' | 'culture';
 
@@ -116,6 +137,7 @@ const Icon: React.FC<{name: IconName; size: number}> = ({name, size}) => {
 const LEAD: Record<Variant, {icon: IconName; label: string}> = {
 	tv: {icon: 'news', label: 'أخبار'},
 	doc: {icon: 'doc', label: 'وثائقيات'},
+	asrdoc: {icon: 'doc', label: 'وثائقيات'},
 };
 
 const TOPICS: {icon: IconName; label: string}[] = [
