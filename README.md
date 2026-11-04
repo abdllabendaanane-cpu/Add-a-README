@@ -74,3 +74,19 @@ npm run render   # تصدير الصور الثلاث إلى designs/
 - نقاط الخريطة مولّدة من بيانات [world-atlas](https://github.com/topojson/world-atlas) بالأمر `node scripts/make-land-dots.mjs`.
 
 **الخطوط:** Montserrat و Cairo و Reem Kufi، وكلها برخصة SIL Open Font License، وموجودة في `public/fonts/`.
+
+## الريلز / Reels
+
+### بركان تامبورا — الجزء 1
+
+ريلز طولي (1080×1920، 57 ثانية) بنفس أسلوب ريلز «العاصفة الشمسية»: غلاف سريع، ثم دخول مباشر بالتاريخ «10 أبريل 1815»، وعنوان كبير، وترجمة أسفل الشاشة، وشارات ذهبية وحمراء، وانتقال سريع بين المشاهد.
+
+| الملف | المحتوى |
+|---|---|
+| [`designs/reels/tambora-part1.mp4`](designs/reels/tambora-part1.mp4) | الفيديو مع المؤثرات الصوتية، دون تعليق |
+| [`designs/reels/tambora-part1-cover.png`](designs/reels/tambora-part1-cover.png) | صورة الغلاف |
+| [`designs/reels/tambora-part1-script.md`](designs/reels/tambora-part1-script.md) | نص التعليق الصوتي بالتوقيت، مع العنوان والوصف والمصادر |
+
+- النص ومدة كل جملة في `src/reels/tambora/script.json`. عدّلهما ثم أعد التصدير.
+- المشاهد المتحركة في `src/reels/tambora/scenes.tsx`، وعناصر الكتابة (العنوان والترجمة والشارات) في `src/reels/ui.tsx`.
+- المؤثرات الصوتية تُولَّد بالأمر `npm run sfx:tambora`، ثم يُصدَّر الفيديو بالأمر `npm run render:reel:tambora`.

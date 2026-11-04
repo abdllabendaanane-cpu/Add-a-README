@@ -15,7 +15,10 @@
     "render:asrdoc:profile": "remotion still src/index.ts AsrDoc-Profile designs/asrdoc/al-asr-doc-profile-1080x1080.png",
     "render:asrdoc:facebook": "remotion still src/index.ts AsrDoc-FacebookCover designs/asrdoc/al-asr-doc-facebook-cover-1640x624.png",
     "render:asrdoc:youtube": "remotion still src/index.ts AsrDoc-YouTubeBanner designs/asrdoc/al-asr-doc-youtube-banner-2560x1440.png",
-    "render:asrdoc": "npm run render:asrdoc:profile && npm run render:asrdoc:facebook && npm run render:asrdoc:youtube"
+    "render:asrdoc": "npm run render:asrdoc:profile && npm run render:asrdoc:facebook && npm run render:asrdoc:youtube",
+    "sfx:tambora": "python3 scripts/make-tambora-sfx.py",
+    "render:reel:tambora": "remotion render src/index.ts Tambora-Part1 designs/reels/tambora-part1.mp4 --codec=h264 --crf=21",
+    "render:reel:tambora:cover": "remotion still src/index.ts Tambora-Part1-Cover designs/reels/tambora-part1-cover.png"
   },
   "repository": {
     "type": "git",

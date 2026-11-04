@@ -1,9 +1,10 @@
 import React from 'react';
-import {Folder, Still} from 'remotion';
+import {Composition, Folder, Still} from 'remotion';
 import {FacebookCover, YouTubeBanner} from './Covers';
 import {Profile} from './Profile';
 import {FacebookCover as V1FacebookCover, YouTubeBanner as V1YouTubeBanner} from './v1/Covers';
 import {Profile as V1Profile} from './v1/Profile';
+import {FPS as TAMBORA_FPS, TIMELINE as TAMBORA, TamboraCover, TamboraReel} from './reels/tambora/Reel';
 import './fonts';
 
 export const RemotionRoot: React.FC = () => {
@@ -28,6 +29,20 @@ export const RemotionRoot: React.FC = () => {
 				<Still id="AsrDoc-Profile" component={Profile} width={1080} height={1080} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
 				<Still id="AsrDoc-FacebookCover" component={FacebookCover} width={1640} height={624} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
 				<Still id="AsrDoc-YouTubeBanner" component={YouTubeBanner} width={2560} height={1440} defaultProps={{guides: false, variant: 'asrdoc' as const}} />
+			</Folder>
+
+			{/* Reels (1080x1920). */}
+			<Folder name="reels">
+				<Composition
+					id="Tambora-Part1"
+					component={TamboraReel}
+					width={1080}
+					height={1920}
+					fps={TAMBORA_FPS}
+					durationInFrames={TAMBORA.total}
+					defaultProps={{audio: true}}
+				/>
+				<Still id="Tambora-Part1-Cover" component={TamboraCover} width={1080} height={1920} />
 			</Folder>
 
 			{/* First version: book, mountains and night sky. */}
